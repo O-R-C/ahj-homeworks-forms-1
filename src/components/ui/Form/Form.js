@@ -37,7 +37,7 @@ export default class Form {
         if (className) return [...acc, className]
         return acc
       },
-      [styles.form]
+      [styles.form],
     )
   }
 

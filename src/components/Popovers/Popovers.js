@@ -1,8 +1,12 @@
 import PopoversUI from './PopoversUI'
+import { getPositions } from './getPositions'
 
 export default class Popovers {
-  #element
   #ui
+  #app
+  #element
+  #tooltip
+  #itemHasTooltip
 
   constructor(element) {
     if (typeof element === 'string') {
@@ -11,9 +15,48 @@ export default class Popovers {
 
     this.#element = element
     this.#ui = new PopoversUI()
+    this.#app = this.#ui.app
   }
 
-  bindToDom() {
-    this.#element.append(this.#ui.app)
+  init() {
+    this.#bindToDom()
+    this.#addListeners()
+  }
+
+  #bindToDom() {
+    this.#element.append(this.#app)
+  }
+
+  #addListeners() {
+    this.#app.addEventListener('click', this.#onClick)
+  }
+
+  #onClick = (evt) => {
+    const item = evt.target.closest('[class*="item"]')
+
+    if (!item) return
+
+    this.#itemHasTooltip === item
+      ? this.#removeTooltip()
+      : this.#showTooltip(item)
+  }
+
+  #showTooltip(element) {
+    this.#removeTooltip()
+
+    this.#tooltip = this.#ui.tooltip
+    const positions = getPositions(element.dataset.side)
+
+    Object.keys(positions).forEach((key) => {
+      this.#tooltip.style[key] = positions[key]
+    })
+
+    element.append(this.#tooltip)
+    this.#itemHasTooltip = element
+  }
+
+  #removeTooltip() {
+    this.#tooltip && this.#tooltip.remove()
+    this.#itemHasTooltip = null
   }
 }

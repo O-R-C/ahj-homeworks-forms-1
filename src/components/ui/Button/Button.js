@@ -38,7 +38,7 @@ export default class Button {
         if (className) return [...acc, className]
         return acc
       },
-      [styles.button]
+      [styles.button],
     )
   }
 

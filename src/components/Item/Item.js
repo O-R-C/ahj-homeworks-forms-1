@@ -5,15 +5,15 @@ import styles from './Item.module.css'
 
 export default class Item {
   #classes
-  #title
+  #side
 
   /**
    *
    * @param {String|String[]} classes
    */
-  constructor(classes, title = '') {
+  constructor(classes, side = '') {
     this.#classes = classes
-    this.#title = title
+    this.#side = side
   }
 
   /**
@@ -25,7 +25,10 @@ export default class Item {
 
   #createElement() {
     const item = new Div({ classes: this.#getClasses(this.#classes) }).element
-    const btn = new Button({ classes: styles.btn, title: this.#title }).element
+    item.dataset.side = this.#side
+
+    const btn = new Button({ classes: styles.btn, title: `show ${this.#side}` })
+      .element
 
     item.append(btn)
 
@@ -40,7 +43,7 @@ export default class Item {
         if (className) return [...acc, className]
         return acc
       },
-      [styles.item]
+      [styles.item],
     )
   }
 }

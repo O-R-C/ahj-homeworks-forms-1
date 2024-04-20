@@ -37,7 +37,7 @@ export default class Div {
         if (className) return [...acc, className]
         return acc
       },
-      [styles.div]
+      [styles.div],
     )
   }
 

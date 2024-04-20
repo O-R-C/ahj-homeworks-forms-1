@@ -1,26 +1,21 @@
-import styles from './Input.module.css'
+import styles from './P.module.css'
 
-export default class Input {
+export default class P {
   #params
 
   /**
    * @typedef {object} element
    * @property {String|String[]} classes
-   * @property {String} type
    * @property {String} id
-   * @property {String} placeholder
-   * @property {boolean} required
+   * @property {String} title
    */
 
   /**
    * @param {element} element
    * {
-   * classes = [styles.input],
+   * classes = [styles.p],
    * id = '',
-   * name = '',
-   * type = 'text',
-   * required = true,
-   * placeholder = '...'
+   * title = '',
    * }
    */
   constructor(element) {
@@ -31,13 +26,7 @@ export default class Input {
   }
 
   #getDefaultParams() {
-    return {
-      classes: [],
-      id: '',
-      type: 'text',
-      required: true,
-      placeholder: '...',
-    }
+    return { classes: [], id: '', title: '' }
   }
 
   #getClasses(classes) {
@@ -48,7 +37,7 @@ export default class Input {
         if (className) return [...acc, className]
         return acc
       },
-      [styles.input],
+      [styles.p],
     )
   }
 
@@ -60,15 +49,12 @@ export default class Input {
   }
 
   #createElement() {
-    const element = document.createElement('input')
+    const element = document.createElement('p')
 
-    element.type = this.#params.type
-    element.required = this.#params.required
-    element.placeholder = this.#params.placeholder
     element.classList.add(...this.#getClasses(this.#params.classes))
 
     this.#params.id && (element.id = this.#params.id)
-    this.#params.name && (element.name = this.#params.name)
+    this.#params.title && (element.textContent = this.#params.title)
 
     return element
   }

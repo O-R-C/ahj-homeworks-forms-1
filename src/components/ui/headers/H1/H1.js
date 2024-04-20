@@ -37,7 +37,7 @@ export default class H1 {
         if (className) return [...acc, className]
         return acc
       },
-      [styles.h1]
+      [styles.h1],
     )
   }
 
