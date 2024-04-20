@@ -5,18 +5,36 @@ import P from '../ui/P/P'
 import styles from './Tooltip.module.css'
 
 export default class Tooltip {
-  #classes
-  #title
-  #text
+  #params
 
   /**
-   *
-   * @param {String|String[]} classes
+   * @typedef {object} element
+   * @property {String|String[]} classes
+   * @property {String} id
+   * @property {String} title
+   * @property {String} text
+   * @property {String} side
    */
-  constructor(classes, title = '', text = '') {
-    this.#classes = classes
-    this.#title = title
-    this.#text = text
+
+  /**
+   * @param {element} element
+   * {
+   * classes = [styles.div],
+   * id = '',
+   * title = '',
+   * text = '',
+   * side = 'left',
+   * }
+   */
+  constructor(element) {
+    this.#params = {
+      ...this.#getDefaultParams(),
+      ...element,
+    }
+  }
+
+  #getDefaultParams() {
+    return { classes: [], id: '', title: '', text: '', side: 'left' }
   }
 
   /**
@@ -28,20 +46,24 @@ export default class Tooltip {
 
   #createElement() {
     const tooltip = new Div({
-      classes: this.#getClasses(this.#classes),
+      classes: this.#getClasses(this.#params.classes),
     }).element
 
     const header = new H3({
       classes: styles.header,
-      title: this.#title,
+      title: this.#params.title,
     }).element
 
     const paragraph = new P({
       classes: styles.paragraph,
-      title: this.#text,
+      title: this.#params.text,
     }).element
 
-    tooltip.append(header, paragraph)
+    const arrow = new Div({
+      classes: styles[`arrow${this.#params.side.toUpperCase()}`],
+    }).element
+
+    tooltip.append(header, paragraph, arrow)
 
     return tooltip
   }

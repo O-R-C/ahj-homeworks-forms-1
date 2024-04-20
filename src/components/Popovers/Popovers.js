@@ -44,8 +44,10 @@ export default class Popovers {
   #showTooltip(element) {
     this.#removeTooltip()
 
-    this.#tooltip = this.#ui.tooltip
-    const positions = getPositions(element.dataset.side)
+    const side = element.dataset.side
+
+    this.#tooltip = this.#ui.getTooltip(side)
+    const positions = getPositions(side)
 
     Object.keys(positions).forEach((key) => {
       this.#tooltip.style[key] = positions[key]

@@ -17,9 +17,13 @@ export default class PopoversUI {
     return app
   }
 
-  get tooltip() {
-    const tooltip = new Tooltip(styles.tooltip, 'tooltip', 'awesome text')
-      .element
+  getTooltip(side) {
+    const tooltip = new Tooltip({
+      classes: styles.tooltip,
+      title: 'tooltip',
+      text: 'awesome text',
+      side: side,
+    }).element
 
     // const coords = element.getBoundingClientRect()
 
