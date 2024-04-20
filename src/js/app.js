@@ -1,4 +1,4 @@
-import CreditCardValidator from '../components/CreditCardValidator/CreditCardValidator'
+import Popovers from '../components/Popovers/Popovers'
 
-const creditCardValidator = new CreditCardValidator('body')
-creditCardValidator.init()
+const popovers = new Popovers('body')
+popovers.bindToDom()
