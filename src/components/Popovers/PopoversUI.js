@@ -25,8 +25,6 @@ export default class PopoversUI {
       side: side,
     }).element
 
-    // const coords = element.getBoundingClientRect()
-
     return tooltip
   }
 }
